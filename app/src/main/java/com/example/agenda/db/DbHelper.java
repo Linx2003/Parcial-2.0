@@ -75,4 +75,14 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close();
         return true;
     }
+
+    public boolean checkIfProductExists(String productName, int productQuantity) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + Database_Table1 + " WHERE Nombre = ? AND Cantidad = ?";
+        Cursor cursor = db.rawQuery(query, new String[] {productName, String.valueOf(productQuantity)});
+        boolean exists = cursor.moveToFirst();
+        cursor.close();
+        return exists;
+    }
+
 }
